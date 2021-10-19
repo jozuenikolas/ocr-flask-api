@@ -69,7 +69,8 @@ def getTextFromImage(image):
         age = getAgeFromDateTime(fecha)
     else:    
         fecha=devolverFecha(recorreCadena(cadena))
-        
+        if fecha!=0:
+            age = getAgeFromDateTime(fecha)
     print("age", age)
     print("fecha:", fecha)
     return {
