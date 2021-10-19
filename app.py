@@ -19,10 +19,19 @@ def getImage():
     open_cv_image = np.array(img) 
     open_cv_image = open_cv_image[:, :, ::-1].copy() 
 
-    message = getTextFromImage(open_cv_image)
+    response = getTextFromImage(open_cv_image)
+    status = "incorrect"
+    message = "Envía otra foto"
+    if response["fecha"] != 0:
+        status = "correct"
+        message = "Foto correcta"
     return jsonify({
-        "status": "received",
-        "message": message
+        "status": status,
+        "message": message,
+        "response": {
+            "edad": response["age"],
+            "fechaNacimiento": response["fecha"]
+        }
     })
 
 if __name__ == '__main__':

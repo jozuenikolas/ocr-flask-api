@@ -1,6 +1,7 @@
 import pytesseract
 import datefinder
 import cv2
+from datetime import date
 
 def month_string_to_number(SS):
     #año no ingresa aqui
@@ -44,6 +45,10 @@ def devolverFecha(cadena):
     else:
         return 0
 
+def getAgeFromDateTime(dateTime):
+    today = date.today()
+    return today.year - dateTime.year - ((today.month, today.day) < (dateTime.month, dateTime.day))
+
 def getTextFromImage(image):
 
     #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
@@ -59,12 +64,16 @@ def getTextFromImage(image):
     #print('fin cadena')
 
     fecha=devolverFecha(cadena)
-
+    age=0
     if fecha!=0:
-        print (fecha)  
+        age = getAgeFromDateTime(fecha)
     else:    
         fecha=devolverFecha(recorreCadena(cadena))
-        print(fecha)
-
-    return fecha
+        
+    print("age", age)
+    print("fecha:", fecha)
+    return {
+        "fecha": fecha,
+        "age": age
+    }
 
