@@ -12,7 +12,7 @@ CORS(app)
 def ping():
     return jsonify({"message": 'pong!'})
 
-@app.route("/image", methods=['GET'])
+@app.route("/image", methods=['POST'])
 def getImage():
     image = request.files['image']
     img = Image.open(image.stream).convert('RGB') 
